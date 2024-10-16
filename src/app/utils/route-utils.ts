@@ -8,6 +8,7 @@ import { SearchScope } from '../../types/searchScope'
 import { isStableDeploy, specialScopePaths } from '../../config'
 import { getSearchTermFromRequest } from '../components/Search/search-utils'
 import type { HasLayer } from '../../types/layers'
+import { WifiProtectedSetupSharp } from '@mui/icons-material'
 
 export const fixedNetwork = process.env.REACT_APP_FIXED_NETWORK as Network | undefined
 export const fixedLayer = process.env.REACT_APP_FIXED_LAYER as Layer | undefined
@@ -74,22 +75,20 @@ export const isNotOnHiddenLayer = (item: HasLayer) => !isLayerHidden(item.layer)
 export abstract class RouteUtils {
   private static ENABLED_LAYERS_FOR_NETWORK = {
     [Network.mainnet]: {
-      [Layer.emerald]: true,
+      [Layer.emerald]: false,
       [Layer.sapphire]: true,
       [Layer.cipher]: false,
       [Layer.pontusxdev]: false,
       [Layer.pontusxtest]: false,
-      // Disable WIP Consensus on production and staging
-      [Layer.consensus]: !isStableDeploy,
+      [Layer.consensus]: true,
     },
     [Network.testnet]: {
-      [Layer.emerald]: true,
-      [Layer.sapphire]: true,
+      [Layer.emerald]: process.env.REACT_APP_LOCALNET_EMERALD == 'false' ? false : true,
+      [Layer.sapphire]: process.env.REACT_APP_LOCALNET_SAPPHIRE == 'false' ? false : true,
       [Layer.cipher]: false,
-      [Layer.pontusxdev]: true,
-      [Layer.pontusxtest]: true,
-      // Disable WIP Consensus on production and staging
-      [Layer.consensus]: !isStableDeploy,
+      [Layer.pontusxdev]: false,
+      [Layer.pontusxtest]: false,
+      [Layer.consensus]: true,
     },
   } satisfies Record<Network, Record<Layer, boolean>>
 

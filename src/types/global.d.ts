@@ -29,7 +29,9 @@ declare global {
       REACT_APP_FIXED_NETWORK?: string
       REACT_APP_FIXED_LAYER?: string
       REACT_APP_SKIP_GRAPH?: string
-      REACT_APP_SHOW_FIAT_VALUES: 'true' | 'false'
+      REACT_APP_SHOW_FIAT_VALUES?: 'true' | 'false'
+      REACT_APP_LOCALNET_SAPPHIRE?: 'true' | 'false'
+      REACT_APP_LOCALNET_EMERALD?: 'true' | 'false'
     }
   }
 
